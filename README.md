@@ -1,6 +1,6 @@
 # Mastermind
 A Python version of the Mastermind game.  
-Author: Dakota Kallas 
+Author: Dakota Kallas                     
 Date: 4/21/21 
 
 This game consists of two files, mastermind.py and mastermind_driver.py.
