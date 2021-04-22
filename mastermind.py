@@ -19,7 +19,6 @@ class Mastermind():
         self.target_pattern = []
         # Dictionaries of colors used in game [Black, White, Red, Green, Purple, Orange]
         self.colors = {0:'B', 1:'W', 2:'R', 3:'G', 4:'P', 5:'O'}
-        self.valid = {'B':0, 'W':1, 'R':2, 'G':3, 'P':4, 'O':5}
 
     # Function used to play the game
     def play(self):
@@ -46,7 +45,7 @@ class Mastermind():
 
             # If the input is valid, evaluate the guess
             self.guesses.append(guess)
-            correctness = Mastermind.evaluate_guess(self, guess)
+            correctness = Mastermind.evaluate_guess(guess, self.target_pattern)
             self.results.append(correctness)
             if correctness[0] == 4:
                 solved = True
@@ -58,7 +57,8 @@ class Mastermind():
 
     # Parameters: none
     # Returns: a valid game pattern, indicating the user’s guess, in your chosen representation
-    def get_guess(self):
+    def get_guess():
+        valid_colors = {'B':0, 'W':1, 'R':2, 'G':3, 'P':4, 'O':5}
         valid = False
         while valid == False:
             # Get input from the user
@@ -69,7 +69,7 @@ class Mastermind():
             # Check to see if the input is valid
             if len(guess) == 4:
                 for e in guess:
-                    if e not in self.valid.keys():
+                    if e not in valid_colors.keys():
                         valid = False
                         print("Invalid input.\n")
                         break
@@ -83,7 +83,7 @@ class Mastermind():
     # Parameters: a valid game pattern – guess, a valid game pattern – target
     # Returns: sequence of pegs indicating correctness of the guess, in your chosen
     #          representation
-    def evaluate_guess(self, guess):
+    def evaluate_guess(guess, target):
         black = 0
         white = 0
         # Array used to check if a peg has already been sued to compare to
@@ -92,7 +92,7 @@ class Mastermind():
         # Iterate through the guess to determine its correctness
         for i in range(0,4):
             # Determine when it should have a black peg of correctness
-            if guess[i] == self.target_pattern[i]:
+            if guess[i] == target[i]:
                 black += 1
                 if compared[i] == 1:
                     white -= 1
@@ -100,7 +100,7 @@ class Mastermind():
             # Determine when it should have a white peg of correctness
             else:
                 for p in range(0,4):
-                    if guess[i] == self.target_pattern[p] and compared[p] == 0:
+                    if guess[i] == target[p] and compared[p] == 0:
                         white += 1
                         compared[p] = 1
                         break
